@@ -178,10 +178,13 @@ $storiesLists.on("click", ".star", addRemoveFavorite);
 function putFavoritesListOnPage() {
   console.debug("putFavoritesListOnPage");
   $favoritedStories.empty();
-
-  for (let story of currentUser.favorites) {
-    const $story = generateStoryMarkup(story);
-    $favoritedStories.append($story);
+  if (currentUser.favorites.length === 0){
+    $favoritedStories.append("<h5>No favorites added!</h5>");
+  }else{
+    for (let story of currentUser.favorites) {
+      const $story = generateStoryMarkup(story);
+      $favoritedStories.append($story);
+    }
   }
   $favoritedStories.show();
 }
@@ -193,9 +196,13 @@ function putUserStoriesOnPage() {
   console.debug("putUserStoriesOnPage");
 
   $ownStories.empty();
-  for (let story of currentUser.ownStories) {
-    let $story = generateStoryMarkup(story,true);
-    $ownStories.append($story);
+  if (currentUser.ownStories.length === 0) {
+    $ownStories.append("<h5>No stories added by user yet!</h5>");
+  } else {
+    for (let story of currentUser.ownStories) {
+      let $story = generateStoryMarkup(story,true);
+      $ownStories.append($story);
+    }
   }
   $ownStories.show();
 }
